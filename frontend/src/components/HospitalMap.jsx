@@ -53,7 +53,7 @@ export default function HospitalMap({ hospitals, onSelect }) {
            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; OpenStreetMap contributors" />
            {markers.map((marker) => (
              <Marker key={marker.hospital._id || marker.hospital.id} position={marker.position}>
-               <Popup className="neu-popup">
+               <Popup className="neu-popup"> 
                  <div className="space-y-3 p-1 min-w-[200px]">
                    <p className="font-bold text-gray-800 text-base border-b border-gray-200 pb-2">{marker.hospital.name}</p>
                    <p className="text-xs text-gray-600 font-medium">{marker.hospital.address}</p>
