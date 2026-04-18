@@ -38,7 +38,7 @@ export default function AdminHospitalsPage() {
       setIsAdding(false);
       fetchHospitals();
     } catch (error) {
-      toast.error('Failed to add hospital');
+      toast.error(error.response?.data?.message || 'Failed to add hospital');
     }
   };
 
@@ -49,7 +49,7 @@ export default function AdminHospitalsPage() {
       toast.success('Hospital deleted');
       fetchHospitals();
     } catch (error) {
-      toast.error('Failed to delete hospital');
+      toast.error(error.response?.data?.message || 'Failed to delete hospital');
     }
   };
 

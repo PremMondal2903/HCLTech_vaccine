@@ -34,7 +34,7 @@ export default function AdminSlotsPage() {
       });
       toast.success('Offering added');
       reset();
-    } catch { toast.error('Failed to add offering'); }
+    } catch (err) { toast.error(err.response?.data?.message || 'Failed to add offering'); }
   };
 
   const addSlots = async (data) => {
@@ -45,7 +45,7 @@ export default function AdminSlotsPage() {
       });
       toast.success('Slots configured');
       reset2();
-    } catch { toast.error('Failed to configure slots'); }
+    } catch (err) { toast.error(err.response?.data?.message || 'Failed to configure slots'); }
   };
 
   if (loading) return <div className="flex h-64 justify-center items-center"><LoadingSpinner/></div>;

@@ -10,7 +10,12 @@ export default function LoginPage() {
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: {
+      email: 'admin@gmail.com',
+      password: 'admin123'
+    }
+  });
 
   useEffect(() => {
     if (user) {

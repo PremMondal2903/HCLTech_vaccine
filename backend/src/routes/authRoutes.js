@@ -55,7 +55,6 @@ router.post(
 
 router.post(
   '/login',
-  loginLimiter,
   [
     body('email').isEmail().withMessage('Email must be valid'),
     body('password').notEmpty().withMessage('Password is required'),

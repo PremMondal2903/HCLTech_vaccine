@@ -27,13 +27,20 @@ export default function AdminVaccinesPage() {
 
   const onSubmit = async (data) => {
     try {
-      await api.post('/vaccines', data);
+      const payload = {
+        ...data,
+        recommendedDoses: Number(data.recommendedDoses),
+        minAge: Number(data.minAge),
+        maxAge: Number(data.maxAge),
+        gapBetweenDoses: Number(data.gapBetweenDoses)
+      };
+      await api.post('/vaccines', payload);
       toast.success('Vaccine added successfully');
       reset();
       setIsAdding(false);
       fetchVaccines();
     } catch (error) {
-      toast.error('Failed to add vaccine');
+      toast.error(error.response?.data?.message || 'Failed to add vaccine');
     }
   };
 
@@ -44,7 +51,7 @@ export default function AdminVaccinesPage() {
       toast.success('Vaccine deleted');
       fetchVaccines();
     } catch (error) {
-      toast.error('Failed to delete vaccine');
+      toast.error(error.response?.data?.message || 'Failed to delete vaccine');
     }
   };
 
