@@ -49,19 +49,99 @@ const swaggerOptions = {
     info: {
       title: 'Hospital Vaccine Search & Slot Booking API',
       version: '1.0.0',
-      description: 'API documentation for hospital vaccine search and slot booking platform',
+      description: 'Comprehensive API documentation for hospital vaccine search and slot booking platform',
+      contact: {
+        name: 'Support Team',
+        email: 'support@vaccine-booking.com',
+      },
     },
-    servers: [{ url: 'http://localhost:' + (process.env.PORT || 5000) }],
+    servers: [
+      {
+        url: `http://localhost:${process.env.PORT || 5000}`,
+        description: 'Development Server',
+      },
+      {
+        url: 'https://hcltech-vaccine.onrender.com',
+        description: 'Production Server',
+      },
+    ],
     components: {
       securitySchemes: {
         bearerAuth: {
           type: 'http',
           scheme: 'bearer',
           bearerFormat: 'JWT',
+          description: 'JWT Authorization header using the Bearer scheme',
+        },
+      },
+      schemas: {
+        User: {
+          type: 'object',
+          properties: {
+            _id: { type: 'string' },
+            name: { type: 'string' },
+            email: { type: 'string' },
+            phone: { type: 'string' },
+            role: { type: 'string', enum: ['patient', 'admin'] },
+            dateOfBirth: { type: 'string', format: 'date' },
+          },
+        },
+        Hospital: {
+          type: 'object',
+          properties: {
+            _id: { type: 'string' },
+            name: { type: 'string' },
+            address: { type: 'string' },
+            city: { type: 'string' },
+            state: { type: 'string' },
+            pincode: { type: 'string' },
+            phone: { type: 'string' },
+            email: { type: 'string' },
+            location: {
+              type: 'object',
+              properties: {
+                type: { type: 'string' },
+                coordinates: { type: 'array', items: { type: 'number' } },
+              },
+            },
+            operatingHours: {
+              type: 'object',
+              properties: {
+                open: { type: 'string' },
+                close: { type: 'string' },
+              },
+            },
+            vaccines: { type: 'array', items: { type: 'string' } },
+          },
+        },
+        Vaccine: {
+          type: 'object',
+          properties: {
+            _id: { type: 'string' },
+            name: { type: 'string' },
+            manufacturer: { type: 'string' },
+            recommendedDoses: { type: 'integer' },
+            minAge: { type: 'integer' },
+            maxAge: { type: 'integer' },
+            gapBetweenDoses: { type: 'integer' },
+            description: { type: 'string' },
+          },
+        },
+        Booking: {
+          type: 'object',
+          properties: {
+            _id: { type: 'string' },
+            user: { type: 'string' },
+            hospital: { type: 'string' },
+            vaccine: { type: 'string' },
+            slotDate: { type: 'string', format: 'date-time' },
+            doseNumber: { type: 'integer' },
+            status: { type: 'string', enum: ['pending', 'confirmed', 'completed', 'cancelled'] },
+            bookingRef: { type: 'string' },
+          },
         },
       },
     },
-    security: [{ bearerAuth: [] }],
   },
   apis: ['./src/routes/*.js'],
 };
